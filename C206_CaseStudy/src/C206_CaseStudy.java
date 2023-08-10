@@ -18,9 +18,25 @@ public class C206_CaseStudy {
 			if (opt == 0) {
 				//display menu;
 				menu();
+			} else if (opt == 1) {
+				//register for account 
+			} else if (opt == 2) {
+				//login account as admin, user or service provider
+			} else if (opt == 3) {
+				//add
+			} else if (opt == 4) {
+				//view
+			} else if (opt == 5) {
+				//delete
+			} else if (opt == 6){
+				//log out
+				System.out.println("\nYou have logged out of the system, good bye!");
+			} else {
+				//invalid option chosen
+				System.out.println("\n*** Invalid option selected ***\n");
 			}
 		}
-	}
+	} //end of main 
 
 	public static void addUser(ArrayList<User> userList, User addUser) {
 		// TODO Auto-generated method stub

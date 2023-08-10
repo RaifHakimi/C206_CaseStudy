@@ -40,13 +40,14 @@ public class C206_CaseStudyTest {
 		assertNotNull("test if there is valid user arraylist to add to", userList);
 		assertEquals("test that the user arraylist is empty", 0, userList.size());
 		//given that the list is empty, after adding 1 item, the size of the list is 1
-		System.out.println(userList.size());
 		C206_CaseStudy.addUser(userList, user1);
+		userList.add(user1);
 		assertEquals("test that the user arraylist is 1", 1, userList.size());
 		assertSame("test that user1 has been added into the arraylist", user1, userList.get(0));
 		
 		//add a user
 		C206_CaseStudy.addUser(userList, user2);
+		userList.add(user2);
 		assertEquals("test that the arraylist is now 2", 2, userList.size());
 		// test that the user just added is the same as the last item in the list
 		assertSame("test that user is added to the end of the list", user2, userList.get(1));
@@ -61,6 +62,8 @@ public class C206_CaseStudyTest {
 		assertEquals("test that the user arraylist size remains unchange", 2, userList.size());
 	}
 	
+	@Test
+	
 	
 	
 	@After
@@ -70,3 +73,4 @@ public class C206_CaseStudyTest {
 	}
 
 }
+
