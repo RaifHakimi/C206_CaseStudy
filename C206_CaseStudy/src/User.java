@@ -55,4 +55,9 @@ public class User {
 		this.address = address;
 	}
 
+	public boolean getIsAvailable() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }
