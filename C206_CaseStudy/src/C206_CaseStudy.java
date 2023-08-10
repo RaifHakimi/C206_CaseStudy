@@ -67,10 +67,14 @@ public class C206_CaseStudy {
 	//------------------------------------------------------------
 	public static void menu() {
 		Helper.line(45, "-");
-		System.out.println("***** Renovation Portal *****");
+		System.out.println("*****         RENOVATION PORTAL         *****");
 		Helper.line(45, "-");
 		System.out.println("1. Register for an account\n"
-				+ "2. Login account");
+				+ "2. Login account\n"
+				+ "3. Add User/Service Provider/Service/Quote/Request/Appointment\n"
+				+ "4. View User/Service Provider/Service/Quote/Request/Appointment\n"
+				+ "5. Delete User/Service Provider/Service/Quote/Request/Appointment\n"
+				+ "6. Exit");
 	
 		
 	}
