@@ -25,7 +25,7 @@ public class C206_CaseStudy {
 				userList.add(addUser);
 			}
 		} else {
-			System.out.println("Invalid email format, please try again!");
+			System.out.println("Invalid email format, please try again!");			
 		}
 		
 		int aft = userList.size();
@@ -50,6 +50,12 @@ public class C206_CaseStudy {
 
 	public static void menu() {
 		C206_CaseStudy.setHeader("Renovation Portal");
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println();
 	}
 	
 	public static void setHeader(String header) {
