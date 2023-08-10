@@ -5,7 +5,21 @@ public class C206_CaseStudy {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		ArrayList<User> userList = new ArrayList<User>();
-
+		
+		//display menu and ask user for options
+		int opt = -99;
+		menu();
+		
+		//indefinite while loop
+		while(opt != -90) {
+			opt = Helper.readInt("\nEnter option or 0 for main menu > ");
+		
+			//check for options
+			if (opt == 0) {
+				//display menu;
+				menu();
+			}
+		}
 	}
 
 	public static void addUser(ArrayList<User> userList, User addUser) {
@@ -33,7 +47,7 @@ public class C206_CaseStudy {
 			System.out.println("\nUser has been added successfully!");
 		}
 	}
-
+	
 	public static String retrieveAllUser(ArrayList<User> userList) {
 		// TODO Auto-generated method stub
 		String output = "";
@@ -48,21 +62,19 @@ public class C206_CaseStudy {
 		return output;
 	}
 
+	//------------------------------------------------------------
+	// static method to print menu
+	//------------------------------------------------------------
 	public static void menu() {
-		C206_CaseStudy.setHeader("Renovation Portal");
-		System.out.println();
-		System.out.println();
-		System.out.println();
-		System.out.println();
-		System.out.println();
-		System.out.println();
-	}
+		Helper.line(45, "-");
+		System.out.println("***** Renovation Portal *****");
+		Helper.line(45, "-");
+		System.out.println("1. Register for an account\n"
+				+ "2. Login account");
 	
-	public static void setHeader(String header) {
-		Helper.line(80, "-");
-		System.out.println(header);
-		Helper.line(80, "-");
+		
 	}
+
 		
 
 }
