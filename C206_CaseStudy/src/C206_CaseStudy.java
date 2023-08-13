@@ -93,23 +93,44 @@ public class C206_CaseStudy {
 	//------------------------------------------------------------
 	public static String retrieveAllUser(ArrayList<User> userList) {
 		// TODO Auto-generated method stub
-		String output = "";
+		String output = String.format("");
 		for (int i = 0; i < userList.size(); i++) {
-			output += String.format("", 
-					userList.get(i).getUsername(), 
-					userList.get(i).getEmail(), 
-					userList.get(i).getPassword(), 
-					userList.get(i).getMobile(),
-					userList.get(i).getAddress());
+			if (userList != null) {
+				String username = userList.get(i).getUsername();
+				String email = userList.get(i).getEmail();
+				//String password = userList.get(i).getPassword();
+				int mobile = userList.get(i).getMobile();
+				String address = userList.get(i).getAddress();
+				
+				output += String.format(address, username, email, mobile, address);
+			}
 		}
 		return output;
 	}
 	
 
 	//------------------------------------------------------------
-	// delete a user
+	//static method takes in a user arraylist and performs the remove user functionality
+	//It will return 'true' if the user record exist
 	//------------------------------------------------------------
-	
+	public static boolean deleteUser(ArrayList<User> userList, int j) {
+		// TODO Auto-generated method stub
+		boolean userfound = false;
+		
+		String username = Helper.readString("\nEnter user's username: ");
+		for (int i = 0; i < userList.size(); i++) {
+			if (username.equalsIgnoreCase(userList.get(i).getUsername())) {
+				userfound = true;
+				userList.get(i).display();
+				char choice = Helper.readChar("\nConfirm deletion? (y/n): ");
+				if (choice == 'Y' || choice == 'y') {
+					userList.remove(i);
+					System.out.println("\n*** User has been deleted ***\n");	
+				} 
+			}
+		}
+		return false;
+	}
 	
 	 //------------------------------------------------------------
 	 // add a new service
