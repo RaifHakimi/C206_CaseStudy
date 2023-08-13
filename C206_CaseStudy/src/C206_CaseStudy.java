@@ -5,6 +5,7 @@ public class C206_CaseStudy {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		ArrayList<User> userList = new ArrayList<User>();
+		ArrayList<RenovationService> services = new ArrayList<RenovationService>();
 		
 		//display menu and ask user for options
 		int opt = -99;
@@ -38,6 +39,28 @@ public class C206_CaseStudy {
 		}
 	} //end of main 
 
+
+	//------------------------------------------------------------
+	// static method to print menu
+	//------------------------------------------------------------
+	public static void menu() {
+		Helper.line(45, "-");
+		System.out.println("*****         RENOVATION PORTAL         *****");
+		Helper.line(45, "-");
+		System.out.println("1. Register for an account\n"
+				+ "2. Login account\n"
+				+ "3. Add User/Service Provider/Service/Quote/Request/Appointment\n"
+				+ "4. View User/Service Provider/Service/Quote/Request/Appointment\n"
+				+ "5. Delete User/Service Provider/Service/Quote/Request/Appointment\n"
+				+ "6. Exit");
+	
+		
+	}
+
+	
+	//------------------------------------------------------------
+	// add a new user
+	//------------------------------------------------------------
 	public static void addUser(ArrayList<User> userList, User addUser) {
 		// TODO Auto-generated method stub
 		int bef = userList.size();
@@ -63,7 +86,11 @@ public class C206_CaseStudy {
 			System.out.println("\nUser has been added successfully!");
 		}
 	}
+
 	
+	//------------------------------------------------------------
+	// display all user details (view)
+	//------------------------------------------------------------
 	public static String retrieveAllUser(ArrayList<User> userList) {
 		// TODO Auto-generated method stub
 		String output = "";
@@ -77,24 +104,119 @@ public class C206_CaseStudy {
 		}
 		return output;
 	}
-
-	//------------------------------------------------------------
-	// static method to print menu
-	//------------------------------------------------------------
-	public static void menu() {
-		Helper.line(45, "-");
-		System.out.println("*****         RENOVATION PORTAL         *****");
-		Helper.line(45, "-");
-		System.out.println("1. Register for an account\n"
-				+ "2. Login account\n"
-				+ "3. Add User/Service Provider/Service/Quote/Request/Appointment\n"
-				+ "4. View User/Service Provider/Service/Quote/Request/Appointment\n"
-				+ "5. Delete User/Service Provider/Service/Quote/Request/Appointment\n"
-				+ "6. Exit");
 	
-		
-	}
+
+	//------------------------------------------------------------
+	// delete a user
+	//------------------------------------------------------------
+	
+	
+	 //------------------------------------------------------------
+	 // add a new service
+	 //------------------------------------------------------------
+	 public static void addNewService(ArrayList<RenovationService> services, String serviceName, String description, double price) {
+	        RenovationService newService = new RenovationService(serviceName, description, price);
+	        services.add(newService);
+	        System.out.println("Service added successfully!");
+	    }
+
+	 
+	 //------------------------------------------------------------
+	 // display all service details (view)
+     //------------------------------------------------------------
+	 public static void viewAllServices(ArrayList<RenovationService> services) {
+	        System.out.println("All Services:");
+	        for (int i = 0; i < services.size(); i++) {
+	            RenovationService service = services.get(i);
+	            System.out.println("Service Name: " + service.getServiceName());
+	            System.out.println("Description: " + service.getDescription());
+	            System.out.println("Price: $" + service.getPrice());
+	            System.out.println();
+	        }
+	    } 
+	
+	 //------------------------------------------------------------
+	 // delete a service
+	 //------------------------------------------------------------
+	 public static void deleteService(ArrayList<RenovationService> services, String serviceName) {
+	        RenovationService serviceToRemove = null;
+	        for (int i = 0; i < services.size(); i++) {
+	            RenovationService service = services.get(i);
+	            if (service.getServiceName().equals(serviceName)) {
+	                serviceToRemove = service;
+	                break;
+	            }
+	        }
+
+	        if (serviceToRemove != null) {
+	            services.remove(serviceToRemove);
+	            System.out.println("Service deleted: " + serviceName);
+	        } else {
+	            System.out.println("Service not found: " + serviceName);
+	        }
+	    }
+	 
+	 
+	 //------------------------------------------------------------
+	 // add a new service provider
+	 //------------------------------------------------------------
+
 
 		
+	 //------------------------------------------------------------
+	 // display all service provider details (view)
+	 //------------------------------------------------------------
+		
 
+	 //------------------------------------------------------------
+	 // delete a service provider
+	 //------------------------------------------------------------
+	 
+	 
+	 //------------------------------------------------------------
+	 // add a new quote
+	 //------------------------------------------------------------
+
+
+		
+	 //------------------------------------------------------------
+	 // display all quote details (view)
+	 //------------------------------------------------------------
+		
+
+	 //------------------------------------------------------------
+	 // delete a quote
+	 //------------------------------------------------------------
+	 
+	 
+	 //------------------------------------------------------------
+	 // add a new service request
+	 //------------------------------------------------------------
+
+
+		
+	 //------------------------------------------------------------
+	 // display all request details (view)
+	 //------------------------------------------------------------
+		
+
+	 //------------------------------------------------------------
+	 // delete a request
+	 //------------------------------------------------------------
+	 
+	 
+	 //------------------------------------------------------------
+	 // add a new appointment
+	 //------------------------------------------------------------
+
+
+		
+	 //------------------------------------------------------------
+	 // display all appointment details (view)
+	 //------------------------------------------------------------
+		
+
+	 //------------------------------------------------------------
+	 // delete a appointment
+	 //------------------------------------------------------------
 }
