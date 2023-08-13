@@ -60,4 +60,12 @@ public class User {
 		return false;
 	}
 
+	public void display() {
+		// TODO Auto-generated method stub
+		System.out.println("Username: " + username);
+		System.out.println("Email: " + email);
+		System.out.println("Mobile: " + mobile);
+		System.out.println("Address: " + address);
+	}
+
 }
