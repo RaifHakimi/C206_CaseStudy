@@ -22,7 +22,7 @@ public class C206_CaseStudy {
 			} else if (opt == 1) {
 				//register for account 
 			} else if (opt == 2) {
-				//login account as admin, user or service provider
+				//login account
 			} else if (opt == 3) {
 				//add
 			} else if (opt == 4) {
@@ -98,11 +98,9 @@ public class C206_CaseStudy {
 			if (userList != null) {
 				String username = userList.get(i).getUsername();
 				String email = userList.get(i).getEmail();
-				//String password = userList.get(i).getPassword();
+				String password = userList.get(i).getPassword();
 				int mobile = userList.get(i).getMobile();
 				String address = userList.get(i).getAddress();
-				
-				output += String.format(address, username, email, mobile, address);
 			}
 		}
 		return output;
@@ -131,6 +129,7 @@ public class C206_CaseStudy {
 		}
 		return false;
 	}
+	
 	
 	 //------------------------------------------------------------
 	 // add a new service
