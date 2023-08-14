@@ -5,7 +5,11 @@ public class C206_CaseStudy {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		ArrayList<User> userList = new ArrayList<User>();
+		User u1 = new User("jontan", "jontan@gmail.com", "jon123", 90123456, "76 smith street");
+		User u2 = new User("marylim", "marylim@gmail.com", "mary987", 80987654, "52 oak street");
+		
 		ArrayList<RenovationService> services = new ArrayList<RenovationService>();
+		ArrayList<Serviceprovider> ServiceproviderList = new ArrayList<Serviceprovider>();
 		
 		//display menu and ask user for options
 		int opt = -99;
@@ -13,6 +17,7 @@ public class C206_CaseStudy {
 		
 		//indefinite while loop
 		while(opt != -90) {
+			//boolean userfound = true;
 			opt = Helper.readInt("\nEnter option or 0 for main menu > ");
 		
 			//check for options
@@ -25,10 +30,13 @@ public class C206_CaseStudy {
 				//login account
 			} else if (opt == 3) {
 				//add
+				addMenu(userList, services, ServiceproviderList);
 			} else if (opt == 4) {
 				//view
+				viewListMenu(userList, services, ServiceproviderList);
 			} else if (opt == 5) {
 				//delete
+				deleteMenu(userList, services, ServiceproviderList);
 			} else if (opt == 6){
 				//log out
 				System.out.println("\nYou have logged out of the system, good bye!");
@@ -37,56 +45,186 @@ public class C206_CaseStudy {
 				System.out.println("\n*** Invalid option selected ***\n");
 			}
 		}
-	} //end of main 
+	} 
+	//END OF MAIN PROGRAM
 
-
+	
+//==========================================================
+//==================== START OF METHODS ====================
+//==========================================================
+	
+//==================== MENU METHODS ====================
 	//------------------------------------------------------------
-	// static method to print menu
+	// static method to print main menu
 	//------------------------------------------------------------
 	public static void menu() {
 		Helper.line(45, "-");
-		System.out.println("*****         RENOVATION PORTAL         *****");
+	    System.out.println("*****         RENOVATION PORTAL         *****");
+	    Helper.line(45, "-");
+		System.out.print("1. Register\n");
+		System.out.print("2. Login\n");
+		System.out.print("3. Add User or Service\n");
+		System.out.print("4. View User/services List\n");
+		System.out.print("5. Delete User/Services List\n");
+		System.out.print("6. Exit\n");
 		Helper.line(45, "-");
-		System.out.println("1. Register for an account\n"
-				+ "2. Login account\n"
-				+ "3. Add User/Service Provider/Service/Quote/Request/Appointment\n"
-				+ "4. View User/Service Provider/Service/Quote/Request/Appointment\n"
-				+ "5. Delete User/Service Provider/Service/Quote/Request/Appointment\n"
-				+ "6. Exit");
-	
-		
 	}
 
 	
+	//------------------------------------------------------------
+	// static method to print addMenu
+	//------------------------------------------------------------
+	public static void addMenu(ArrayList<User> userList, ArrayList<RenovationService> services, ArrayList<Serviceprovider> serviceProviderList) {
+		System.out.print("***************************\n");	
+		System.out.print("1. Add user\n");
+		System.out.print("2. Add service provider\n");
+		System.out.print("3. Add a service\n");
+		System.out.print("4. Add a quote\n");
+		System.out.print("5. Add a request\n");
+		System.out.print("6. Add a appointment\n");
+		System.out.print("0. Exit\n");
+		System.out.print("***************************\n");
+		int opt = Helper.readInt("Select a choice to add:  ");
+		if(opt == 1) {
+			// Insert Add user command
+			String username = Helper.readString("Enter username: ");
+	        String email = Helper.readString("Enter email: ");
+	        String password = Helper.readString("Enter password: ");
+	        int mobile = Helper.readInt("Enter mobile number: ");
+	        String address = Helper.readString("Enter address: ");
+	        User newUser = new User(username, email, password, mobile, address);
+	        addUser(userList, newUser);
+		}else if (opt == 2) {
+			// Add SERVICE PROVIDER
+		}else if (opt == 3) {
+			// ADD A SERVICE
+			String serviceName = Helper.readString("Enter service name: ");
+	        String description = Helper.readString("Enter description: ");
+	        double price = Helper.readDouble("Enter price: ");
+	        addNewService(services, serviceName, description, price);
+		}else if (opt == 4) {
+			// ADD A QUOTE
+		}else if(opt == 5) {
+			// ADD A REQUEST
+		}else if(opt == 6) {
+			// ADD APPOINTMENT
+		} else if(opt == 0){
+			//EXIT
+		}else {
+			System.out.print("Invalid Option");
+		}
+	}
+	
+	
+	//------------------------------------------------------------
+	// static method to print viewListMenu
+	//------------------------------------------------------------
+	public static void viewListMenu(ArrayList<User> userList, ArrayList<RenovationService> services, ArrayList<Serviceprovider> serviceProviderList) {
+		//
+		// add if statement to check if user is admin or service provider IF POSSIBLE
+		System.out.print("***************************\n");
+		System.out.print("1. View user list\n");
+		System.out.print("2. View service provider list\n");
+		//
+		System.out.print("3. View service list\n");
+		System.out.print("4. View quote list\n");
+		System.out.print("5. View request list\n");
+		System.out.print("6. View appointment list\n");
+		System.out.print("0. Exit\n");
+		System.out.print("***************************\n");
+		int opt = Helper.readInt("Select a choice to view:  ");
+		if(opt == 1) {
+			// Insert VIEW USER
+			String userInformation = retrieveAllUser(userList);
+	        System.out.println("User List:\n" + userInformation);
+		}else if (opt == 2) {
+			// VIEW SERVICE PROVIDER
+		}else if (opt == 3) {
+			//  VIEW SERVICE
+			viewAllServices(services);
+		}else if (opt == 4) {
+			// VIEW QUOTE
+		}else if(opt == 5) {
+			// VIEW REQUEST
+		}else if(opt == 6) {
+			// VIEW APPOINTMENT
+		} else if(opt == 0){
+			//EXIT
+		}else {
+			System.out.print("Invalid Option");
+		}
+	}
+	
+	
+	//------------------------------------------------------------
+	// static method to print deleteMenu
+	//------------------------------------------------------------
+	public static void deleteMenu(ArrayList<User> userList, ArrayList<RenovationService> services, ArrayList<Serviceprovider> serviceProviderList) {
+		//
+		// add if statement to check if user is admin or service provider IF POSSIBLE
+		System.out.print("***************************\n");
+		System.out.print("1. Delete a user \n");
+		System.out.print("2. Delete a service provider \n");
+		//
+		System.out.print("3. Delete a service \n");
+		System.out.print("4. Delete a quote \n");
+		System.out.print("5. Delete a request\n");
+		System.out.print("6. Delete appointment\n");
+		System.out.print("0. Exit\n");
+		System.out.print("***************************\n");
+		int opt = Helper.readInt("Select a choice to delete:  ");
+		if(opt == 1) {
+			// Insert DELETE USER
+		}else if (opt == 2) {
+			// DELETE SERVICE PROVIDER
+		}else if (opt == 3) {
+			//  DELETE SERVICE		
+		}else if (opt == 4) {
+			// DELETE QUOTE
+		}else if(opt == 5) {
+			// DELETE REQUEST
+		}else if(opt == 6) {
+			// DELETE APPOINTMENT
+		} else if(opt == 0){
+			//EXIT
+		}else {
+			System.out.print("Invalid Option");
+		}
+	}
+	
+//==========	
+//==================== ADD/VIEW/DELETE USER METHODS ====================
+//====================         DONE BY JOY          ====================
 	//------------------------------------------------------------
 	// add a new user
 	//------------------------------------------------------------
-	public static void addUser(ArrayList<User> userList, User addUser) {
-		// TODO Auto-generated method stub
-		int bef = userList.size();
-		User user = addUser;
-		if (user.getEmail().endsWith("@gmail.com" )) {
-			boolean duplicate = false;
-			for (int i = 0; i < userList.size(); i++) {
-				if (userList.get(i).getUsername().equals(user.getUsername())) {
-					duplicate = true;
-					System.out.println("Username exists, please try with another username!");
-					break;
-				}
-			}
-			if (duplicate == false) {
-				userList.add(addUser);
-			}
-		} else {
-			System.out.println("Invalid email format, please try again!");			
-		}
-		
-		int aft = userList.size();
-		if (aft > bef ) {
-			System.out.println("\nUser has been added successfully!");
-		}
-	}
 
+	public static void addUser(ArrayList<User> userList, User addUser) {
+	    int bef = userList.size();
+	    User user = addUser;	    
+	    if (user.getEmail().endsWith("@gmail.com")) {
+	        boolean duplicate = false;
+	        for (int i = 0; i < userList.size(); i++) {
+	            if (userList.get(i).getUsername().equals(user.getUsername())) {
+	                duplicate = true;
+	                System.out.println("Username exists, please try with another username!");
+	                break;
+	            }
+	        }
+	        
+	        if (!duplicate) {
+	            userList.add(addUser);
+	            System.out.println("User has been added successfully!");
+	        }
+	    } else {
+	        System.out.println("Invalid email format, please try again!");
+	    }
+	    
+	    int aft = userList.size();
+	    if (aft > bef) {
+	        System.out.println("Total users in the list: " + aft);
+	    }
+	}
 	
 	//------------------------------------------------------------
 	// display all user details (view)
@@ -111,7 +249,7 @@ public class C206_CaseStudy {
 	//static method takes in a user arraylist and performs the remove user functionality
 	//It will return 'true' if the user record exist
 	//------------------------------------------------------------
-	public static boolean deleteUser(ArrayList<User> userList, int j) {
+	public static boolean deleteUser(ArrayList<User> userList) {
 		// TODO Auto-generated method stub
 		boolean userfound = false;
 		
@@ -125,12 +263,16 @@ public class C206_CaseStudy {
 					userList.remove(i);
 					System.out.println("\n*** User has been deleted ***\n");	
 				} 
+			} else {
+				System.out.println("*** User not found! ***\n");
 			}
 		}
 		return false;
 	}
 	
-	
+
+//==================== ADD/VIEW/DELETE SERVICE METHODS ====================
+//====================          DONE BY JACOB          ====================
 	 //------------------------------------------------------------
 	 // add a new service
 	 //------------------------------------------------------------
@@ -176,12 +318,11 @@ public class C206_CaseStudy {
 	        }
 	    }
 	 
-	 
+
+//==================== ADD/VIEW/DELETE SERVICE PROVIDER METHODS ====================
 	 //------------------------------------------------------------
 	 // add a new service provider
 	 //------------------------------------------------------------
-
-
 		
 	 //------------------------------------------------------------
 	 // display all service provider details (view)
@@ -193,6 +334,7 @@ public class C206_CaseStudy {
 	 //------------------------------------------------------------
 	 
 	 
+//==================== ADD/VIEW/DELETE QUOTE METHODS ====================
 	 //------------------------------------------------------------
 	 // add a new quote
 	 //------------------------------------------------------------
@@ -209,8 +351,9 @@ public class C206_CaseStudy {
 	 //------------------------------------------------------------
 	 
 	 
+//==================== ADD/VIEW/DELETE REQUEST METHODS ====================	 
 	 //------------------------------------------------------------
-	 // add a new service request
+	 // add a new request
 	 //------------------------------------------------------------
 
 
@@ -224,7 +367,8 @@ public class C206_CaseStudy {
 	 // delete a request
 	 //------------------------------------------------------------
 	 
-	 
+
+//==================== ADD/VIEW/DELETE APPOINTMENT METHODS ====================	 
 	 //------------------------------------------------------------
 	 // add a new appointment
 	 //------------------------------------------------------------
