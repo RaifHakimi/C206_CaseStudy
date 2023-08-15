@@ -284,105 +284,114 @@ public class C206_CaseStudy {
 	}
 
 //==================== ADD/VIEW/DELETE SERVICE METHODS ====================
-//====================          DONE BY JACOB          ====================
-	//------------------------------------------------------------
-		 // add a new service
+	//====================          DONE BY JACOB          ====================
 		 //------------------------------------------------------------
-		 public static void addNewService(ArrayList<RenovationService> services, String serviceName, String description, double price) {
-		        RenovationService newService = new RenovationService(serviceName, description, price);
-		        services.add(newService);
-		        System.out.println("Service added successfully!");
-		    }
+		 // Add a new service
+	    public static void addNewService(ArrayList<RenovationService> services, String serviceName, String description, double price) {
+	        // Create a new RenovationService object with provided details
+	        RenovationService newService = new RenovationService(serviceName, description, price);
+	        
+	        // Add the new service to the list of services
+	        services.add(newService);
+	        
+	        // Display success message
+	        System.out.println("Service added successfully!");
+	    }
 
-		 
-		 //------------------------------------------------------------
-		 // display all service details (view)
-	     //------------------------------------------------------------
-		 public static void viewAllServices(ArrayList<RenovationService> services) {
-		        System.out.println("All Services:");
-		        for (int i = 0; i < services.size(); i++) {
-		            RenovationService service = services.get(i);
-		            System.out.println("Service Name: " + service.getServiceName());
-		            System.out.println("Description: " + service.getDescription());
-		            System.out.println("Price: $" + service.getPrice());
-		            System.out.println();
-		        }
-		    } 
-		
-		 //------------------------------------------------------------
-		 // delete a service
-		 //------------------------------------------------------------
-		 public static void deleteService(ArrayList<RenovationService> services, String serviceName) {
-			    RenovationService serviceToRemove = null;
-			    for (int i = 0; i < services.size(); i++) {
-			        RenovationService service = services.get(i);
-			        if (service.getServiceName().equals(serviceName)) {
-			            serviceToRemove = service;
-			            break;
-			        }
-			    }
+	    // Display all service details
+	    public static void viewAllServices(ArrayList<RenovationService> services) {
+	        // Display header
+	        System.out.println("All Services:");
+	        
+	        // Loop through the list of services
+	        for (int i = 0; i < services.size(); i++) {
+	            // Display details of each service
+	            displayServiceDetails(services.get(i));
+	        }
+	    }
 
-			    if (serviceToRemove != null) {
-			        services.remove(serviceToRemove);
-			        System.out.println("Service deleted: " + serviceName);
-			    } else {
-			        System.out.println("Service not found: " + serviceName);
-			    }
-			}
-
-
-		//------------------------------------------------------------
-			 // update a service
-			 //------------------------------------------------------------
-		 public static boolean updateService(ArrayList<RenovationService> services, String serviceName, String newDescription, double newPrice) {
-			    for (int i = 0; i < services.size(); i++) {
-			        RenovationService service = services.get(i);
-			        if (service.getServiceName().equals(serviceName)) {
-			            // Update the description and price of the matching service
-			            service.setDescription(newDescription);
-			            service.setPrice(newPrice);
-			            return true; // Successfully updated
-			        }
-			    }
-			    return false; // Service not found, update failed
-			}
+	    // Delete a service
+	    public static void deleteService(ArrayList<RenovationService> services, String serviceName) {
+	        // Search for the service to remove
+	        RenovationService serviceToRemove = searchService(services, serviceName);
+	        
+	        // If the service is found
+	        if (serviceToRemove != null) {
+	            // Remove the service from the list
+	            services.remove(serviceToRemove);
+	            
+	            // Display success message
+	            System.out.println("Service deleted: " + serviceName);
+	        } else {
+	            // Display not found message
+	            System.out.println("Service not found: " + serviceName);
+	        }
+	    }
 
 
-		 //This method returns a RenovationService object if a match is found or null if no match is found.
-		 public static RenovationService searchService(ArrayList<RenovationService> services, String serviceName) {
-			    // Loop through the list of services to find a match
-			    for (RenovationService service : services) {
-			        // Check if the current service's name matches the target service name
-			        if (service.getServiceName().equals(serviceName)) {
-			            return service; // Found a matching service
-			        }
-			    }
-			    return null; // No matching service found
-			}
+	 // Update a service
+	    public static boolean updateService(ArrayList<RenovationService> services, String serviceName, String newDescription, double newPrice) {
+	        // Search for the service to update
+	        RenovationService serviceToUpdate = searchService(services, serviceName);
+	        
+	        // If the service is found
+	        if (serviceToUpdate != null) {
+	            // Update description and price
+	            serviceToUpdate.setDescription(newDescription);
+	            serviceToUpdate.setPrice(newPrice);
+	            
+	            // Display success message
+	            System.out.println("Service updated: " + serviceName);
+	            return true; // Indicate successful update
+	        } else {
+	            // Display not found message
+	            System.out.println("Service not found: " + serviceName);
+	            return false; // Indicate update failure
+	        }
+	    }
 
-		 
-		 //This method will display the details of the services provided in the serviceNames array, allowing users to compare them side by side.
-		 public static void compareServices(ArrayList<RenovationService> services, String[] serviceNames) {
-			    // Loop through the array of service names to compare
-			    for (int i = 0; i < serviceNames.length; i++) {
-			        // Get the current service name from the array
-			        String serviceName = serviceNames[i];
-			        
-			        // Search for the service with the current name in the list of services
-			        RenovationService service = searchService(services, serviceName);
-			        
-			        // If the service is found, display its details
-			        if (service != null) {
-			            System.out.println("Service Name: " + service.getServiceName());
-			            System.out.println("Description: " + service.getDescription());
-			            System.out.println("Price: $" + service.getPrice());
-			            System.out.println();
-			        } else {
-			            // If the service is not found, display a message
-			            System.out.println("Service not found: " + serviceName);
-			        }
-			    }
-			}
+	    // Compare services
+	    public static void compareServices(ArrayList<RenovationService> services, String[] serviceNames) {
+	        // Display comparison header
+	        System.out.println("Comparing Services:");
+	        
+	        // Loop through the array of service names
+	        for (int i = 0; i < serviceNames.length; i++) {
+	            // Search for the service with the current name
+	            RenovationService service = searchService(services, serviceNames[i]);
+	            
+	            // If the service is found
+	            if (service != null) {
+	                // Display details of the found service
+	                displayServiceDetails(service);
+	            } else {
+	                // Display not found message
+	                System.out.println("Service not found: " + serviceNames[i]);
+	            }
+	        }
+	    }
+	    
+	 // Display service details
+	    private static void displayServiceDetails(RenovationService service) {
+	        // Display service name, description, and price
+	        System.out.println("Service Name: " + service.getServiceName());
+	        System.out.println("Description: " + service.getDescription());
+	        System.out.println("Price: $" + service.getPrice());
+	        System.out.println();
+	    }
+
+	    // Search for a service
+	    private static RenovationService searchService(ArrayList<RenovationService> services, String serviceName) {
+	        // Loop through the list of services
+	        for (int i = 0; i < services.size(); i++) {
+	        	  // If a service with matching name is found
+	            if (services.get(i).getServiceName().equals(serviceName)) {
+	                return services.get(i); // Return the service
+	            }
+	        }
+	        return null; // Return null if no match is found
+	    }
+	
 
 //==================== ADD/VIEW/DELETE SERVICE PROVIDER METHODS ====================
 	// ------------------------------------------------------------
@@ -497,6 +506,7 @@ public class C206_CaseStudy {
 	// add a new request
 	// ------------------------------------------------------------
 
+	
 	// ------------------------------------------------------------
 	// display all request details (view)
 	// ------------------------------------------------------------
@@ -505,16 +515,5 @@ public class C206_CaseStudy {
 	// delete a request
 	// ------------------------------------------------------------
 
-//==================== ADD/VIEW/DELETE APPOINTMENT METHODS ====================	 
-	// ------------------------------------------------------------
-	// add a new appointment
-	// ------------------------------------------------------------
 
-	// ------------------------------------------------------------
-	// display all appointment details (view)
-	// ------------------------------------------------------------
-
-	// ------------------------------------------------------------
-	// delete a appointment
-	// ------------------------------------------------------------
 }
