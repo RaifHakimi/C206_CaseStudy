@@ -244,16 +244,16 @@ public class C206_CaseStudy {
 	// ------------------------------------------------------------
 	// display all user details (view)
 	// ------------------------------------------------------------
-	public static String retrieveAllUser(ArrayList<User> userList) {
-	    String output = ""; // Initialize the output string
-	    for (int i = 0; i < userList.size(); i++) {
-	        User user = userList.get(i); // Get the current user
-	        // Append user details to the output string
-	        output += String.format("%-20s%-35s%-8d%-50s", "Username:", "Email:", 
-	        		"Mobile:", "Address", 
-	            user.getUsername(), user.getEmail(), user.getMobile(), user.getAddress());
-	    }
-	    return output;
+	public static String retrieveAllUser(ArrayList<User> userList) { 
+	    String output = ""; // Initialize the output string 
+	    output += String.format("%-20s%-35s%-15s%-50s\n", "Username", "Email", "Mobile", "Address"); 
+	 
+	    for (int i = 0; i < userList.size(); i++) { 
+	        User user = userList.get(i); // Get the current user 
+	        // Append user details to the output string 
+	        output += String.format("%-20s%-35s%-15d%-50s\n", user.getUsername(), user.getEmail(), user.getMobile(), user.getAddress()); 
+	    } 
+	    return output; 
 	}
 
 	// ------------------------------------------------------------
