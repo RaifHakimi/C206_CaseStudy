@@ -51,7 +51,7 @@ public class User {
 		return address;
 	}
 	
-	public void Address(String address) {
+	public void setAddress(String address) {
 		this.address = address;
 	}
 
@@ -67,5 +67,6 @@ public class User {
 		System.out.println("Mobile: " + mobile);
 		System.out.println("Address: " + address);
 	}
+
 
 }
