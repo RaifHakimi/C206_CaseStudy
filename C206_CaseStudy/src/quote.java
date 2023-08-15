@@ -1,7 +1,6 @@
 
 public class quote {
 	private int id;
-	private String services; 
 	private String name; 
 	private int contactNum; 
 	private String description;
@@ -10,10 +9,9 @@ public class quote {
 	
 	
 	//Customer
-	public quote(int id, String name, int contactNum, String description, String services ){
+	public quote(int id, String name, int contactNum, String description){
 		
 		this.id = id;
-		this.services = services;
 		this.name = name;
 		this.contactNum = contactNum;
 		this.description = description;
@@ -24,9 +22,8 @@ public class quote {
 	}
 	
 	//Admin or Service Provider
-	public quote(int id, String name, int contactNum, String description, String services , int price, String addInfo ){
+	public quote(int id, String name, int contactNum, String description, int price, String addInfo ){
 		this.id = id;
-		this.services = services;
 		this.name = name;
 		this.contactNum = contactNum;
 		this.description = description;
@@ -41,10 +38,6 @@ public class quote {
 	
 	public String getName() {
 		return name;
-	}
-	
-	public String getServices() {
-		return services;
 	}
 	
 	public int getNum() {
@@ -71,9 +64,6 @@ public class quote {
 		this.name = name;
 	}
 	
-	public void setServices(String services) {
-		this.services = services;
-	}
 	
 	public void setContactNum(int contactNum) {
 		this.contactNum = contactNum;
@@ -94,7 +84,7 @@ public class quote {
 
 	
 	public String toStringView() {
-		String msg = String.format("%20d%20s%20d%20s%20s",id,name,contactNum, description, services );
+		String msg = String.format("%20d%20s%20d%20s",id,name,contactNum, description );
 		return msg;
 	}
 }
