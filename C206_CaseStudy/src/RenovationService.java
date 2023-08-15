@@ -21,4 +21,15 @@ public class RenovationService {
     public double getPrice() {
         return price;
     }
+    public void setServiceName() {
+        this.serviceName = serviceName;
+    }
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
 }
