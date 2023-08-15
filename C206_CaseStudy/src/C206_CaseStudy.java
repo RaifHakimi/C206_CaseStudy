@@ -76,7 +76,6 @@ public class C206_CaseStudy {
 		System.out.print("3. Add a service\n");
 		System.out.print("4. Add a quote\n");
 		System.out.print("5. Add a request\n");
-		System.out.print("6. Add a appointment\n");
 		System.out.print("0. Exit\n");
 		Helper.line(45, "-");
 		int opt = Helper.readInt("Select a choice to add:  ");
@@ -103,8 +102,6 @@ public class C206_CaseStudy {
 			addQuote(quoteList, newQuote);
 		} else if (opt == 5) {
 			// ADD A REQUEST
-		} else if (opt == 6) {
-			// ADD APPOINTMENT
 		} else if (opt == 0) {
 			// EXIT
 		} else {
@@ -125,7 +122,6 @@ public class C206_CaseStudy {
 		System.out.print("3. View service list\n");
 		System.out.print("4. View quote list\n");
 		System.out.print("5. View request list\n");
-		System.out.print("6. View appointment list\n");
 		System.out.print("0. Exit\n");
 		Helper.line(45, "-");
 		int opt = Helper.readInt("Select a choice to view:  ");
@@ -143,8 +139,6 @@ public class C206_CaseStudy {
 			viewQuote(quoteList);
 		} else if (opt == 5) {
 			// VIEW REQUEST
-		} else if (opt == 6) {
-			// VIEW APPOINTMENT
 		} else if (opt == 0) {
 			// EXIT
 		} else {
@@ -166,24 +160,23 @@ public class C206_CaseStudy {
 		System.out.print("3. Delete a service \n");
 		System.out.print("4. Delete a quote \n");
 		System.out.print("5. Delete a request\n");
-		System.out.print("6. Delete appointment\n");
 		System.out.print("0. Exit\n");
 		Helper.line(45, "-");
 		int opt = Helper.readInt("Select a choice to delete:  ");
 		if (opt == 1) {
 			// Insert DELETE USER
+			deleteUser(userList);
 		} else if (opt == 2) {
 			// DELETE SERVICE PROVIDER
 		} else if (opt == 3) {
 			// DELETE SERVICE
+			deleteService(services, null);
 		} else if (opt == 4) {
 			// DELETE QUOTE
 			int delQuote = deleteQuoteMenu();
 			deleteQuote(quoteList, delQuote);
 		} else if (opt == 5) {
 			// DELETE REQUEST
-		} else if (opt == 6) {
-			// DELETE APPOINTMENT
 		} else if (opt == 0) {
 			// EXIT
 		} else {
@@ -191,7 +184,12 @@ public class C206_CaseStudy {
 		}
 	}
 
-//==========	
+private static void deleteUser(ArrayList<User> userList) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	//==========	
 //==================== ADD/VIEW/DELETE USER METHODS ====================
 //====================         DONE BY JOY          ====================
 	// ------------------------------------------------------------
