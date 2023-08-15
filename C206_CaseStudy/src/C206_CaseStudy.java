@@ -199,8 +199,7 @@ public class C206_CaseStudy {
 	// ------------------------------------------------------------
 	public static void addUser(ArrayList<User> userList, User addUser) {
 		int bef = userList.size();
-		// String email = addUser.getEmail().trim().toLowerCase(); // Trim and convert
-		// to lowercase
+		// String email = addUser.getEmail().trim().toLowerCase(); // Trim and convert to lowercase
 		String username = Helper.readString("\nEnter username: ");
         String email = Helper.readString("\nEnter email: ");
         String password = Helper.readString("\nEnter password: ");
