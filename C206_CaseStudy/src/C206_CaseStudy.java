@@ -18,8 +18,7 @@ public class C206_CaseStudy {
 		//indefinite while loop
 		while(opt != -90) {
 			//boolean userfound = true;
-			opt = Helper.readInt("\nEnter option or 0 for main menu > ");
-		
+			opt = Helper.readInt("\nEnter option or 0 for main menu: ");
 			//check for options
 			if (opt == 0) {
 				//display menu;
@@ -75,7 +74,7 @@ public class C206_CaseStudy {
 	// static method to print addMenu
 	//------------------------------------------------------------
 	public static void addMenu(ArrayList<User> userList, ArrayList<RenovationService> services, ArrayList<Serviceprovider> serviceProviderList) {
-		System.out.print("***************************\n");	
+		Helper.line(45, "-");	
 		System.out.print("1. Add user\n");
 		System.out.print("2. Add service provider\n");
 		System.out.print("3. Add a service\n");
@@ -83,15 +82,15 @@ public class C206_CaseStudy {
 		System.out.print("5. Add a request\n");
 		System.out.print("6. Add a appointment\n");
 		System.out.print("0. Exit\n");
-		System.out.print("***************************\n");
+		Helper.line(45, "-");
 		int opt = Helper.readInt("Select a choice to add:  ");
 		if(opt == 1) {
 			// Insert Add user command
-			String username = Helper.readString("Enter username: ");
-	        String email = Helper.readString("Enter email: ");
-	        String password = Helper.readString("Enter password: ");
-	        int mobile = Helper.readInt("Enter mobile number: ");
-	        String address = Helper.readString("Enter address: ");
+			String username = "";
+	        String email = "";
+	        String password = "";
+	        int mobile = -1;
+	        String address = "";
 	        User newUser = new User(username, email, password, mobile, address);
 	        addUser(userList, newUser);
 		}else if (opt == 2) {
@@ -122,7 +121,7 @@ public class C206_CaseStudy {
 	public static void viewListMenu(ArrayList<User> userList, ArrayList<RenovationService> services, ArrayList<Serviceprovider> serviceProviderList) {
 		//
 		// add if statement to check if user is admin or service provider IF POSSIBLE
-		System.out.print("***************************\n");
+		Helper.line(45, "-");
 		System.out.print("1. View user list\n");
 		System.out.print("2. View service provider list\n");
 		//
@@ -131,17 +130,14 @@ public class C206_CaseStudy {
 		System.out.print("5. View request list\n");
 		System.out.print("6. View appointment list\n");
 		System.out.print("0. Exit\n");
-		System.out.print("***************************\n");
+		Helper.line(45, "-");
 		int opt = Helper.readInt("Select a choice to view:  ");
 		if(opt == 1) {
 			// Insert VIEW USER
-			String userInformation = retrieveAllUser(userList);
-	        System.out.println("User List:\n" + userInformation);
 		}else if (opt == 2) {
 			// VIEW SERVICE PROVIDER
 		}else if (opt == 3) {
 			//  VIEW SERVICE
-			viewAllServices(services);
 		}else if (opt == 4) {
 			// VIEW QUOTE
 		}else if(opt == 5) {
@@ -162,7 +158,7 @@ public class C206_CaseStudy {
 	public static void deleteMenu(ArrayList<User> userList, ArrayList<RenovationService> services, ArrayList<Serviceprovider> serviceProviderList) {
 		//
 		// add if statement to check if user is admin or service provider IF POSSIBLE
-		System.out.print("***************************\n");
+		Helper.line(45, "-");
 		System.out.print("1. Delete a user \n");
 		System.out.print("2. Delete a service provider \n");
 		//
@@ -171,7 +167,7 @@ public class C206_CaseStudy {
 		System.out.print("5. Delete a request\n");
 		System.out.print("6. Delete appointment\n");
 		System.out.print("0. Exit\n");
-		System.out.print("***************************\n");
+		Helper.line(45, "-");
 		int opt = Helper.readInt("Select a choice to delete:  ");
 		if(opt == 1) {
 			// Insert DELETE USER
@@ -198,31 +194,39 @@ public class C206_CaseStudy {
 	//------------------------------------------------------------
 	// add a new user
 	//------------------------------------------------------------
-
 	public static void addUser(ArrayList<User> userList, User addUser) {
-	    int bef = userList.size();
-	    User user = addUser;	    
-	    if (user.getEmail().endsWith("@gmail.com")) {
+		int bef = userList.size();
+	    //String email = addUser.getEmail().trim().toLowerCase(); // Trim and convert to lowercase
+		String username = Helper.readString("\nEnter username: ");
+        String email = Helper.readString("Enter email: ");
+        String password = Helper.readString("Enter password: ");
+        int mobile = Helper.readInt("Enter mobile number: ");
+        String address = Helper.readString("Enter address: ");
+
+        email = email.trim().toLowerCase(); // Trim and convert to lowercase
+		if (email.endsWith("@gmail.com")) {
 	        boolean duplicate = false;
 	        for (int i = 0; i < userList.size(); i++) {
-	            if (userList.get(i).getUsername().equals(user.getUsername())) {
+	            if (userList.get(i).getUsername().equals(addUser.getUsername())) {
 	                duplicate = true;
-	                System.out.println("Username exists, please try with another username!");
+	                System.out.println("\nUsername exists, please try with another username!");
 	                break;
 	            }
 	        }
 	        
 	        if (!duplicate) {
 	            userList.add(addUser);
-	            System.out.println("User has been added successfully!");
+	            System.out.println("\nUser has been added successfully!");
 	        }
+	    } else if (username.isEmpty() || email.isEmpty() || password.isEmpty() || mobile <= 0 || address.isEmpty()){
+	    	System.out.println("\nPlease fill in all fields.");
 	    } else {
-	        System.out.println("Invalid email format, please try again!");
+	    	System.out.println("\nInvalid email format, please try again!");
 	    }
 	    
 	    int aft = userList.size();
 	    if (aft > bef) {
-	        System.out.println("Total users in the list: " + aft);
+	        System.out.println("\nTotal users in the list: " + aft);
 	    }
 	}
 	
@@ -249,7 +253,7 @@ public class C206_CaseStudy {
 	//static method takes in a user arraylist and performs the remove user functionality
 	//It will return 'true' if the user record exist
 	//------------------------------------------------------------
-	public static boolean deleteUser(ArrayList<User> userList) {
+	public static boolean deleteUser(ArrayList<User> userList, String string, String string2, String string3, int j, String string4) {
 		// TODO Auto-generated method stub
 		boolean userfound = false;
 		
