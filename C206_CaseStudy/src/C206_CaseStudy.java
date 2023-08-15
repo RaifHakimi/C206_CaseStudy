@@ -11,12 +11,15 @@ public class C206_CaseStudy {
 		ArrayList<RenovationService> services = new ArrayList<RenovationService>();
 		ArrayList<Serviceprovider> ServiceproviderList = new ArrayList<Serviceprovider>();
 		
+		ArrayList<quote> quoteList = new ArrayList<quote>();
+		quoteList.add(new quote(1,"name",1234,"deserecript"));
+		
 		//display menu and ask user for options
 		int opt = -99;
 		menu();
 		
 		//indefinite while loop
-		while(opt != -90) {
+		while(opt != 6) {
 			//boolean userfound = true;
 			opt = Helper.readInt("\nEnter option or 0 for main menu: ");
 			//check for options
@@ -29,13 +32,13 @@ public class C206_CaseStudy {
 				//login account
 			} else if (opt == 3) {
 				//add
-				addMenu(userList, services, ServiceproviderList);
+				addMenu(userList, services, ServiceproviderList, quoteList);
 			} else if (opt == 4) {
 				//view
-				viewListMenu(userList, services, ServiceproviderList);
+				viewListMenu(userList, services, ServiceproviderList, quoteList);
 			} else if (opt == 5) {
 				//delete
-				deleteMenu(userList, services, ServiceproviderList);
+				deleteMenu(userList, services, ServiceproviderList, quoteList);
 			} else if (opt == 6){
 				//log out
 				System.out.println("\nYou have logged out of the system, good bye!");
@@ -73,7 +76,8 @@ public class C206_CaseStudy {
 	//------------------------------------------------------------
 	// static method to print addMenu
 	//------------------------------------------------------------
-	public static void addMenu(ArrayList<User> userList, ArrayList<RenovationService> services, ArrayList<Serviceprovider> serviceProviderList) {
+	public static void addMenu(ArrayList<User> userList, ArrayList<RenovationService> services, ArrayList<Serviceprovider> serviceProviderList,
+			ArrayList<quote> quoteList) {
 		Helper.line(45, "-");	
 		System.out.print("1. Add user\n");
 		System.out.print("2. Add service provider\n");
@@ -97,12 +101,10 @@ public class C206_CaseStudy {
 			// Add SERVICE PROVIDER
 		}else if (opt == 3) {
 			// ADD A SERVICE
-			String serviceName = Helper.readString("Enter service name: ");
-	        String description = Helper.readString("Enter description: ");
-	        double price = Helper.readDouble("Enter price: ");
-	        addNewService(services, serviceName, description, price);
 		}else if (opt == 4) {
 			// ADD A QUOTE
+			quote newQuote = addQuoteMenu();
+			addQuote(quoteList,newQuote);
 		}else if(opt == 5) {
 			// ADD A REQUEST
 		}else if(opt == 6) {
@@ -118,7 +120,8 @@ public class C206_CaseStudy {
 	//------------------------------------------------------------
 	// static method to print viewListMenu
 	//------------------------------------------------------------
-	public static void viewListMenu(ArrayList<User> userList, ArrayList<RenovationService> services, ArrayList<Serviceprovider> serviceProviderList) {
+	public static void viewListMenu(ArrayList<User> userList, ArrayList<RenovationService> services, ArrayList<Serviceprovider> serviceProviderList,
+			ArrayList<quote> quoteList) {
 		//
 		// add if statement to check if user is admin or service provider IF POSSIBLE
 		Helper.line(45, "-");
@@ -137,9 +140,10 @@ public class C206_CaseStudy {
 		}else if (opt == 2) {
 			// VIEW SERVICE PROVIDER
 		}else if (opt == 3) {
-			//  VIEW SERVICE
+			//  VIEW SERVICE 
 		}else if (opt == 4) {
 			// VIEW QUOTE
+			viewQuote(quoteList);
 		}else if(opt == 5) {
 			// VIEW REQUEST
 		}else if(opt == 6) {
@@ -155,7 +159,8 @@ public class C206_CaseStudy {
 	//------------------------------------------------------------
 	// static method to print deleteMenu
 	//------------------------------------------------------------
-	public static void deleteMenu(ArrayList<User> userList, ArrayList<RenovationService> services, ArrayList<Serviceprovider> serviceProviderList) {
+	public static void deleteMenu(ArrayList<User> userList, ArrayList<RenovationService> services, ArrayList<Serviceprovider> serviceProviderList,
+			ArrayList<quote> quoteList) {
 		//
 		// add if statement to check if user is admin or service provider IF POSSIBLE
 		Helper.line(45, "-");
@@ -177,6 +182,8 @@ public class C206_CaseStudy {
 			//  DELETE SERVICE		
 		}else if (opt == 4) {
 			// DELETE QUOTE
+			int delQuote = deleteQuoteMenu();
+			deleteQuote(quoteList,delQuote);
 		}else if(opt == 5) {
 			// DELETE REQUEST
 		}else if(opt == 6) {
@@ -339,27 +346,101 @@ public class C206_CaseStudy {
 	 
 	 
 //==================== ADD/VIEW/DELETE QUOTE METHODS ====================
+//====================          DONE BY RAIF         ====================
 	 //------------------------------------------------------------
 	 // add a new quote
 	 //------------------------------------------------------------
-
+	 public static quote addQuoteMenu() {
+			quote quoteDetails;
+			int id = Helper.readInt("Insert ID: ");
+			String name = Helper.readString("Insert Name: ");
+			int num = Helper.readInt("Insert Mobile Number: ");
+			String desc = Helper.readString("Enter a description: ");
+				quoteDetails = new quote(id,name,num,desc);
+				return quoteDetails;
+			}
+		
+		public static void addQuote(ArrayList<quote> quoteList, quote addQuote) {
+			boolean check = true;
+			for(int i = 0; i < quoteList.size() ; i++) {
+				if(quoteList.get(i).equals(addQuote)) {
+					check = false;
+					break;
+				}
+			}
+				if(check == false) {
+					System.out.print("Quote already exist");
+				}else {
+					quoteList.add(addQuote);
+				}
+			
+				
+		}
 
 		
 	 //------------------------------------------------------------
 	 // display all quote details (view)
 	 //------------------------------------------------------------
+	 public static String retrieveQuote(ArrayList<quote> quoteList) {
+			String msg = "";
+			for(int i = 0 ; i < quoteList.size() ; i++) {
+				msg += String.format("%20d%20s%20d%20s%20s",quoteList.get(i).getId(),quoteList.get(i).getName(),quoteList.get(i).getNum(), quoteList.get(i).getDesc());
+			}
+			return msg;
+		}
 		
+		public static void viewQuote(ArrayList<quote> quoteList) {
+			System.out.print("***************************************************************************************************************\n");
+			System.out.print("**************************************  QUOTE LIST  ***********************************************************\n");
+			System.out.print("***************************************************************************************************************\n");
+			String msg = String.format("|  %-2s  |  %-4s  |  %-14s  |  %-30s  |\n","ID","NAME","CONTACT NUMBER","DESCRIPTION");
+			for(int i = 0; i < quoteList.size(); i++) {
+				
+				
+				msg += String.format("|  %-2d  |  %-4s  |  %-14d  |  %-30s  |\n",quoteList.get(i).getId(),quoteList.get(i).getName(), quoteList.get(i).getNum(),quoteList.get(i).getDesc() );
+				}
+			
+			System.out.print(msg);
+			System.out.print("***************************************************************************************************************\n");
+			
+		}	
 
+		
 	 //------------------------------------------------------------
 	 // delete a quote
 	 //------------------------------------------------------------
+		public static int deleteQuoteMenu() {
+			int id = Helper.readInt("Select ID to delete");
+			return id;
+		}
+		
+		public static void deleteQuote(ArrayList<quote> quoteList, int id) {
+			boolean check = false;
+			if(id < 0) {
+				System.out.print("Error: Negative ID");
+			} else {
+				
+				for(int i = 0 ; i < quoteList.size(); i++) {
+					if(id == quoteList.get(i).getId()) {
+						quoteList.remove(i);
+						check = true;
+					}
+				}
+			}
+				if(check == true) {
+					System.out.print("Deletion Successful\n");
+				} else {
+					System.out.print("Deletion Unsuccessful \n");
+				}
+
+		}
 	 
 	 
 //==================== ADD/VIEW/DELETE REQUEST METHODS ====================	 
+//====================          DONE BY DAVIN          ====================
 	 //------------------------------------------------------------
 	 // add a new request
 	 //------------------------------------------------------------
-
 
 		
 	 //------------------------------------------------------------
