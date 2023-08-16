@@ -549,15 +549,68 @@ private static void deleteUser(ArrayList<User> userList) {
 	// ------------------------------------------------------------
 	// add a new request
 	// ------------------------------------------------------------
+	public static request inputRequest() {
+		String id = Helper.readString("Enter id > ");
+		String detail = Helper.readString("Enter details > ");
+		String description = Helper.readString("Enter description > ");
 
+		request cc = new request(id, detail, description);
+		return cc;
+		
+	}
+	public static void addRequest(ArrayList<request> requestList, request cc) {
+		request item;
+		for(int i = 0; i < requestList.size(); i++) {
+			item = requestList.get(i);
+			if (item.getdetail().equalsIgnoreCase(cc.getdetail()) )
+				return;
+		}
+		if ((cc.getdetail().isEmpty()) || (cc.getdescription().isEmpty()) ) {
+			return;
+		}
+		
+		requestList.add(cc);
+	}
 	
 	// ------------------------------------------------------------
 	// display all request details (view)
 	// ------------------------------------------------------------
-
+	public static String retrieveAllRequest(ArrayList<request> requestList) {
+		// TODO Auto-generated method stub
+		String output = String.format("");
+		for (int i = 0; i < requestList.size(); i++) {
+			if (requestList != null) {
+				String id = requestList.get(i).getid();
+				String detail = requestList.get(i).getdetail();
+				String description = requestList.get(i).getdescription();
+			}
+		}
+		return output;
+	}
+	
 	// ------------------------------------------------------------
 	// delete a request
 	// ------------------------------------------------------------
-
+	public static boolean deleteRequest(ArrayList<request> requestList, String string, String string2, String string3, int j, String string4) {
+		// TODO Auto-generated method stub
+		boolean requestfound = false;
+		
+		String id = Helper.readString("\nEnter request's id: ");
+		for (int i = 0; i < requestList.size(); i++) {
+			if (id.equalsIgnoreCase(requestList.get(i).getid())) {
+				requestfound = true;
+				requestList.get(i).display();
+				char choice = Helper.readChar("\nConfirm deletion? (y/n): ");
+				if (choice == 'Y' || choice == 'y') {
+					requestList.remove(i);
+					System.out.println("\n*** User has been deleted ***\n");	
+				} 
+			} else {
+				System.out.println("*** User not found! ***\n");
+			}
+		}
+		return false;
+	}
+	
 
 }
