@@ -130,31 +130,33 @@ public class C206_CaseStudyTest {
 	// -----------------------------------------------------------------
 
 	// ***ADD SERVICE PROVIDER***
-	@Test
-	public void testAddServiceprovider() {
-		// Normal Testing: Adding a service provider with valid data
-		Serviceprovider newProvider = new Serviceprovider("John Doe", "Web Development", "Web Design", 87723457);
-		boolean result = Serviceprovider.addServiceprovider(newProvider);
-		assertFalse(result);
-
-		// Boundary Testing: Adding a service provider with minimum and maximum data
-		Serviceprovider minProvider = new Serviceprovider("john", "", "", 89076432); // Minimum data
-		Serviceprovider maxProvider = new Serviceprovider("John private limted company and Services",
-				"provide nice services and rapid with action. Non-sticky paint that reflects away light",
-				"painting and design", 65983421);
-
-		boolean resultMin = Serviceprovider.addServiceprovider(minProvider);
-		boolean resultMax = Serviceprovider.addServiceprovider(maxProvider);
-
-		assertFalse(resultMin);
-		assertFalse(resultMax);
-
-		// Error Testing: Adding a service provider with invalid data
-		Serviceprovider invalidProvider = new Serviceprovider(null, "Description", "Service", 87654321);
-		boolean resultInvalid = Serviceprovider.addServiceprovider(invalidProvider);
-
-		assertFalse(resultInvalid);
-	}
+		@Test
+		public void testAddServiceprovider() {
+			// Normal Testing: Adding a service provider with valid data
+		    Serviceprovider newProvider = new Serviceprovider("John Doe", "Web Development", "Web Design", 87723457);
+		    boolean result = Serviceprovider.addServiceprovider(newProvider);
+		    assertFalse(result);
+		    
+		    // Boundary Testing: Adding a service provider with minimum and maximum data
+		    Serviceprovider minProvider = new Serviceprovider("john", "", "", 89076432); // Minimum data
+		    Serviceprovider maxProvider = new Serviceprovider(
+		        "John private limted company and Services", 
+		        "provide nice services and rapid with action. Non-sticky paint that reflects away light",
+		        "painting and design",
+		        65983421);
+		    
+		    boolean resultMin = Serviceprovider.addServiceprovider(minProvider);
+		    boolean resultMax = Serviceprovider.addServiceprovider(maxProvider);
+		    
+		    assertFalse(resultMin);
+		    assertFalse(resultMax);
+		    
+		    // Error Testing: Adding a service provider with invalid data
+		    Serviceprovider invalidProvider = new Serviceprovider(null, "Description", "Service", 87654321);
+		    boolean resultInvalid = Serviceprovider.addServiceprovider(invalidProvider);
+		    
+		    assertFalse(resultInvalid);
+		}
 
 	// ***RETRIEVE/VIEW ALL SERVICE PROVIDER***
 	@Test
