@@ -7,6 +7,8 @@ public class C206_CaseStudy {
 		ArrayList<User> userList = new ArrayList<User>();
 		User u1 = new User("jontan", "jontan@gmail.com", "jon123", 90123456, "76 smith street");
 		User u2 = new User("marylim", "marylim@gmail.com", "mary987", 80987654, "52 oak street");
+	    userList.add(u1);
+	    userList.add(u2);
 
 		ArrayList<RenovationService> services = new ArrayList<RenovationService>();
 		ArrayList<Serviceprovider> ServiceproviderList = new ArrayList<Serviceprovider>();
@@ -90,6 +92,23 @@ public class C206_CaseStudy {
 			addUser(userList, newUser);
 		} else if (opt == 2) {
 			// Add SERVICE PROVIDER
+			System.out.println("\nADD SERVICE PROVIDER\n");
+	    	  Serviceprovider sp = inputServiceprovider();
+	    	  
+	    	  boolean nameExists = spNameExists(serviceProviderList, sp.getName());
+	    	  boolean contactExists = spcontactExists(serviceProviderList, sp.getContactnum());
+	    	  boolean validContact = isValidContact(sp.getContactnum());
+	    	  
+	    	  if (nameExists) {
+	    	        System.out.println("\nName already exists. Enter again.");
+	    	  } else if (contactExists) {
+	    	        System.out.println("Contact number already exists. Enter again.");
+	    	  } else if (!validContact) {
+	    	        System.out.println("Invalid contact number. Enter again (8 digits).");
+	    	  } else {
+	    		  	C206_CaseStudy.addServiceprovider(serviceProviderList, sp);	
+	    		  	System.out.println("\n**** Service provider added ****");
+	    	  }
 		} else if (opt == 3) {
 			// ADD A SERVICE
 			String serviceName = Helper.readString("Enter service name: ");
@@ -131,6 +150,8 @@ public class C206_CaseStudy {
 			System.out.println("User List:\n" + output);
 		} else if (opt == 2) {
 			// VIEW SERVICE PROVIDER
+			System.out.println("\nVIEWING ALL SERVICE PROVIDER");
+	    	  C206_CaseStudy.viewServiceprovider(ServiceproviderList);
 		} else if (opt == 3) {
 			// VIEW SERVICE
 			viewAllServices(services);
@@ -168,6 +189,21 @@ public class C206_CaseStudy {
 			deleteUser(userList);
 		} else if (opt == 2) {
 			// DELETE SERVICE PROVIDER
+			System.out.println("\nDELETE SERVICE PROVIDER");
+	    	  String spname = Helper.readString("\nEnter name of Service provider to delete > ");
+	    	  boolean found = false;
+	    	  for (Serviceprovider sp : serviceProviderList) {
+	    		  if (sp.getName().equalsIgnoreCase(spname)) {
+	    			  serviceProviderList.remove(sp); // Remove the matching service provider
+	    	          found = true;
+	    	          System.out.println("**** Service provider " + spname + " has been removed ****");
+	    	          break; // Exit the loop after deletion
+	    	        }
+	    	    }
+	    	    
+	    	  if (!found) {
+	    	        System.out.println("Service provider '" + spname + "not found in the list.");
+	    	  }
 		} else if (opt == 3) {
 			// DELETE SERVICE
 			deleteService(services, null);
@@ -284,122 +320,125 @@ private static void deleteUser(ArrayList<User> userList) {
 //==================== ADD/VIEW/DELETE SERVICE METHODS ====================
 	//====================          DONE BY JACOB          ====================
 		 //------------------------------------------------------------
-		 // Add a new service
-	    public static void addNewService(ArrayList<RenovationService> services, String serviceName, String description, double price) {
-	        // Create a new RenovationService object with provided details
-	        RenovationService newService = new RenovationService(serviceName, description, price);
-	        
-	        // Add the new service to the list of services
-	        services.add(newService);
-	        
-	        // Display success message
-	        System.out.println("Service added successfully!");
-	    }
+	// Add a new service
+		public static void addNewService(ArrayList<RenovationService> services, String serviceName, String description, double price) { 
+		     // Check if a service with the same name already exists 
+		     for (int i = 0; i < services.size(); i++) { 
+		         RenovationService existingService = services.get(i); 
+		         if (existingService.getServiceName().equalsIgnoreCase(serviceName)) { 
+		             System.out.println("Service with the same name already exists."); 
+		             return; // Exit the method to prevent adding the same service again 
+		         } 
+		     } 
+		 
+		     // Create a new RenovationService object with provided details 
+		     RenovationService newService = new RenovationService(serviceName, description, price); 
+		 
+		     // Add the new service to the list of services 
+		     services.add(newService); 
+		 
+		     // Display success message 
+		     System.out.println("Service added successfully!"); 
+		 }
 
-	    // Display all service details
-	    public static void viewAllServices(ArrayList<RenovationService> services) {
-	        // Display header
-	        System.out.println("All Services:");
-	        
-	        // Loop through the list of services
-	        for (int i = 0; i < services.size(); i++) {
-	            // Display details of each service
-	            displayServiceDetails(services.get(i));
-	        }
-	    }
+		    // Display all service details
+		    public static void viewAllServices(ArrayList<RenovationService> services) {
+		        // Display header
+		        System.out.println("All Services:");
+		        
+		        // Loop through the list of services
+		        for (int i = 0; i < services.size(); i++) {
+		            // Display details of each service
+		            displayServiceDetails(services.get(i));
+		        }
+		    }
 
-	    // Delete a service
-	    public static void deleteService(ArrayList<RenovationService> services, String serviceName) {
-	        // Search for the service to remove
-	        RenovationService serviceToRemove = searchService(services, serviceName);
-	        
-	        // If the service is found
-	        if (serviceToRemove != null) {
-	            // Remove the service from the list
-	            services.remove(serviceToRemove);
-	            
-	            // Display success message
-	            System.out.println("Service deleted: " + serviceName);
-	        } else {
-	            // Display not found message
-	            System.out.println("Service not found: " + serviceName);
-	        }
-	    }
-
-
-	 // Update a service
-	    public static boolean updateService(ArrayList<RenovationService> services, String serviceName, String newDescription, double newPrice) {
-	        // Search for the service to update
-	        RenovationService serviceToUpdate = searchService(services, serviceName);
-	        
-	        // If the service is found
-	        if (serviceToUpdate != null) {
-	            // Update description and price
-	            serviceToUpdate.setDescription(newDescription);
-	            serviceToUpdate.setPrice(newPrice);
-	            
-	            // Display success message
-	            System.out.println("Service updated: " + serviceName);
-	            return true; // Indicate successful update
-	        } else {
-	            // Display not found message
-	            System.out.println("Service not found: " + serviceName);
-	            return false; // Indicate update failure
-	        }
-	    }
-
-	    // Compare services
-	    public static void compareServices(ArrayList<RenovationService> services, String[] serviceNames) {
-	        // Display comparison header
-	        System.out.println("Comparing Services:");
-	        
-	        // Loop through the array of service names
-	        for (int i = 0; i < serviceNames.length; i++) {
-	            // Search for the service with the current name
-	            RenovationService service = searchService(services, serviceNames[i]);
-	            
-	            // If the service is found
-	            if (service != null) {
-	                // Display details of the found service
-	                displayServiceDetails(service);
-	            } else {
-	                // Display not found message
-	                System.out.println("Service not found: " + serviceNames[i]);
-	            }
-	        }
-	    }
-	    
-	 // Display service details
-	    private static void displayServiceDetails(RenovationService service) {
-	        // Display service name, description, and price
-	        System.out.println("Service Name: " + service.getServiceName());
-	        System.out.println("Description: " + service.getDescription());
-	        System.out.println("Price: $" + service.getPrice());
-	        System.out.println();
-	    }
-
-	    // Search for a service
-	    private static RenovationService searchService(ArrayList<RenovationService> services, String serviceName) {
-	        // Loop through the list of services
-	        for (int i = 0; i < services.size(); i++) {
-	        	  // If a service with matching name is found
-	            if (services.get(i).getServiceName().equals(serviceName)) {
-	                return services.get(i); // Return the service
-	            }
-	        }
-	        return null; // Return null if no match is found
-	    }
-	
+		    // Delete a service
+		    public static void deleteService(ArrayList<RenovationService> services, String serviceName) {
+		        boolean serviceFound = false;
+		        
+		        // Loop through the list of services
+		        for (int i = 0; i < services.size(); i++) {
+		            RenovationService service = services.get(i);
+		            
+		            if (service.getServiceName().equalsIgnoreCase(serviceName)) {
+		                // Remove the service from the list
+		                services.remove(i);
+		                
+		                // Display success message
+		                System.out.println("Service deleted: " + serviceName);
+		                
+		                serviceFound = true;
+		                break; // Exit the loop once the service is found and removed
+		            }
+		        }
+		        
+		        if (!serviceFound) {
+		            // Display not found message
+		            System.out.println("Service not found: " + serviceName);
+		        }
+		    }
+		    
+		 // Display service details
+		    private static void displayServiceDetails(RenovationService service) {
+		        // Display service name, description, and price
+		        System.out.println("Service Name: " + service.getServiceName());
+		        System.out.println("Description: " + service.getDescription());
+		        System.out.println("Price: $" + service.getPrice());
+		        System.out.println();
+		    }
+		    
 
 //==================== ADD/VIEW/DELETE SERVICE PROVIDER METHODS ====================
 	// ------------------------------------------------------------
 	// add a new service provider
 	// ------------------------------------------------------------
+		    public static Serviceprovider inputServiceprovider() {
+				String name = Helper.readString("Enter service provider name > ");
+				String description = Helper.readString("Enter description > ");
+				String service = Helper.readString("Enter offered service > ");
+				int contactnum = Helper.readInt("Enter contact number > ");
 
+				Serviceprovider sp= new Serviceprovider(name, description, service, contactnum);
+				return sp;
+				
+			}
+			
+			public static void addServiceprovider(ArrayList ServiceproviderList, Serviceprovider sp) {
+			    
+			    ServiceproviderList.add(sp);
+			}
+			
+			public static boolean spNameExists(ArrayList<Serviceprovider> ServiceproviderList, String name) {
+			    for (Serviceprovider sp : ServiceproviderList) {
+			        if (sp.getName().equalsIgnoreCase(name)) {
+			            return true;
+			        }
+			    }
+			    return false;
+			}
+			
+			public static boolean spcontactExists(ArrayList<Serviceprovider> ServiceproviderList, int contactnum) {
+			    for (Serviceprovider sp : ServiceproviderList) {
+			        if (sp.getContactnum() == contactnum) {
+			            return true;
+			        }
+			    }
+			    return false;
+			}
+			
+			public static boolean isValidContact(int contactnum) {
+			    int numDigits = String.valueOf(contactnum).length();
+			    return numDigits == 8;
+			}
+			
+			
 	// ------------------------------------------------------------
 	// display all service provider details (view)
 	// ------------------------------------------------------------
 
+			
+			
 	// ------------------------------------------------------------
 	// delete a service provider
 	// ------------------------------------------------------------
