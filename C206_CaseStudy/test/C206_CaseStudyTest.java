@@ -159,171 +159,141 @@ public class C206_CaseStudyTest {
 		}
 
 	// ***RETRIEVE/VIEW ALL SERVICE PROVIDER***
-	@Test
-	public void testViewServiceprovider() {
-		assertNull("Test if there is valid Service provider list to retrieve from", ServiceproviderList);
-	}
+		@Test
+		public void testViewServiceprovider() {
+		    assertNull("Test if there is valid Service provider list to retrieve from", ServiceproviderList);
+		}
 
 	// ***DELETE SERVICE PROVIDER***
-	@Test
-	public void testDeleteServiceprovider() {
-		// Normal Testing: Deleting an existing service provider
-		Serviceprovider existingProvider = new Serviceprovider("John Doe", "Web Development", "Web Design", 87723457);
-		Serviceprovider.addServiceprovider(existingProvider);
-
-		boolean deleteResult = Serviceprovider.deleteServiceprovider("John Doe");
-		assertFalse(deleteResult);
-
-		// Check that the deleted service provider is no longer visible
-		Serviceprovider deletedProvider = Serviceprovider.viewServiceprovider("John Doe");
-		assertNull(deletedProvider);
-
-		// Boundary Testing: Deleting a non-existing service provider
-		boolean nonExistingDeleteResult = Serviceprovider.deleteServiceprovider("Non-existing Provider");
-		assertFalse(nonExistingDeleteResult);
-
-		// Error Testing: Deleting with invalid data
-		boolean invalidDeleteResult = Serviceprovider.deleteServiceprovider(null);
-		assertFalse(invalidDeleteResult);
-	}
-
+		@Test 
+		public void testDeleteServiceprovider() {
+			// Normal Testing: Deleting an existing service provider
+		    Serviceprovider existingProvider = new Serviceprovider("John Doe", "Web Development", "Web Design", 87723457);
+		    Serviceprovider.addServiceprovider(existingProvider);
+		    
+		    boolean deleteResult = Serviceprovider.deleteServiceprovider("John Doe");
+		    assertFalse(deleteResult);
+		    
+		    // Check that the deleted service provider is no longer visible
+		    Serviceprovider deletedProvider = Serviceprovider.viewServiceprovider("John Doe");
+		    assertNull(deletedProvider);
+		    
+		    // Boundary Testing: Deleting a non-existing service provider
+		    boolean nonExistingDeleteResult = Serviceprovider.deleteServiceprovider("Non-existing Provider");
+		    assertFalse(nonExistingDeleteResult);
+		    
+		    // Error Testing: Deleting with invalid data
+		    boolean invalidDeleteResult = Serviceprovider.deleteServiceprovider(null);
+		    assertFalse(invalidDeleteResult);
+		}
+		
+		
 	// -----------------------------------------------------------------
 	// ----------------- TEST CASES FOR SERVICE ------------------
+	// ----------------- DONE BY JACOB --------------------------
 	// -----------------------------------------------------------------
 
-	@Test
-	public void testAddNewService() {
-	    // Normal test case: Adding a new service with valid details
-	    assertEquals("Service list size should be 0 initially", 0, serviceList.size());
+		@Test
+		public void testAddNewService() {
+		    // Normal test case: Adding a new service with valid details
+		    assertEquals("Service list size should be 0 initially", 0, serviceList.size());
 
-	    // Call the method to add a new service with valid details
-	    C206_CaseStudy.addNewService(serviceList, "Painting", "Professional painting service", 150.0);
+		    // Call the method to add a new service with valid details
+		    C206_CaseStudy.addNewService(serviceList, "Painting", "Professional painting service", 150.0);
 
-	    // Check if the service list size increases by 1 after adding
-	    assertEquals("Service list size should be 1 after adding", 1, serviceList.size());
+		    // Check if the service list size increases by 1 after adding
+		    assertEquals("Service list size should be 1 after adding", 1, serviceList.size());
 
-	    // Check if the added service matches the expected values
-	    assertEquals("Service Name should match", "Painting", serviceList.get(0).getServiceName());
-	    assertEquals("Description should match", "Professional painting service", serviceList.get(0).getDescription());
-	    assertEquals("Price should match", 150.0, serviceList.get(0).getPrice(), 0.01);
-	    
-	    
-	    
+		    // Check if the added service matches the expected values
+		    assertEquals("Service Name should match", "Painting", serviceList.get(0).getServiceName());
+		    assertEquals("Description should match", "Professional painting service", serviceList.get(0).getDescription());
+		    assertEquals("Price should match", 150.0, serviceList.get(0).getPrice(), 0.01);
+		    
+		    
+		    
 
-	    // Boundary test case: Adding a new service with minimum valid details
-	    String serviceName = "Flooring";   // Service name with valid value
-	    String description = "";           // Empty description
-	    double price = 0.0;                // Minimum valid price
+		    // Boundary test case: Adding a new service with minimum valid details
+		    String serviceName = "Flooring";   // Service name with valid value
+		    String description = "";           // Empty description
+		    double price = 0.0;                // Minimum valid price
 
-	    // Call the method to add a new service with minimum valid details
-	    C206_CaseStudy.addNewService(serviceList, serviceName, description, price);
+		    // Call the method to add a new service with minimum valid details
+		    C206_CaseStudy.addNewService(serviceList, serviceName, description, price);
 
-	    // Check if the service list size increases by 1 after adding
-	    assertEquals("Service list size should be 2 after adding", 2, serviceList.size());
+		    // Check if the service list size increases by 1 after adding
+		    assertEquals("Service list size should be 2 after adding", 2, serviceList.size());
 
-	    // Check if the added service matches the values provided
-	    assertEquals("Service added should match the one in the list", serviceName, serviceList.get(1).getServiceName());
-	    assertEquals("Description should match", description, serviceList.get(1).getDescription());
-	    assertEquals("Price should match", price, serviceList.get(1).getPrice(), 0.01);
-	    
-	    
+		    // Check if the added service matches the values provided
+		    assertEquals("Service added should match the one in the list", serviceName, serviceList.get(1).getServiceName());
+		    assertEquals("Description should match", description, serviceList.get(1).getDescription());
+		    assertEquals("Price should match", price, serviceList.get(1).getPrice(), 0.01);
+		    
+		    
+		    
+		    // Error test case: Adding a service with missing name, which should fail
+		    int initialServiceListSize = serviceList.size();
 
-	    
-	    // Error test case: Adding a service with missing name, which should fail
-	    int initialServiceListSize = serviceList.size();
+		    // Call the method to add a new service with empty service name
+		    C206_CaseStudy.addNewService(serviceList, "", "Test description", 100.0);
 
-	    // Call the method to add a new service with empty service name
-	    C206_CaseStudy.addNewService(serviceList, "", "Test description", 100.0);
-
-	    // Check if the serviceList size remains the same after adding a service with an empty name
-	    assertEquals("Service list size should remain the same", initialServiceListSize, serviceList.size());
-	}
-
+		    // Check if the serviceList size remains the same after adding a service with an empty name
+		    assertEquals("Service list size should remain the same", initialServiceListSize, serviceList.size());
+		}
 
 
-    @Test
-    //normal testing
-    public void testViewAllServices() {
-        // Create a sample service named service1 with details
-        RenovationService service1 = new RenovationService("Painting", "Professional painting service", 150.0);
 
-        // Create another sample service named service2 with different details
-        RenovationService service2 = new RenovationService("Flooring", "High-quality flooring solutions", 200.0);
+		@Test
+	    //normal testing
+	    public void testViewAllServices() {
+	        // Create a sample service named service1 with details
+	        RenovationService service1 = new RenovationService("Painting", "Professional painting service", 150.0);
 
-        // Add both sample services to the serviceList to simulate having services in the list
-        serviceList.add(service1);
-        serviceList.add(service2);
+	        // Create another sample service named service2 with different details
+	        RenovationService service2 = new RenovationService("Flooring", "High-quality flooring solutions", 200.0);
 
-        // Call the method to view all services in the serviceList
-        // The method doesn't return a value, it only displays information using System.out.println
-        // Therefore, the purpose of this test case is to check if the method executes without errors
-        C206_CaseStudy.viewAllServices(serviceList);
-    }
+	        // Add both sample services to the serviceList to simulate having services in the list
+	        serviceList.add(service1);
+	        serviceList.add(service2);
 
-
-    @Test
- // Test case: Deleting existing services 
-//NORMAL
- public void testDeleteServices() {
-     // Normal test case: Deleting an existing service
-     RenovationService service1 = new RenovationService("Painting", "Professional painting service", 150.0);
-     serviceList.add(service1);
-
-     // Store the initial size of the serviceList
-     int initialSize = serviceList.size();
-
-     // Call the deleteService method to remove the service named "Painting"
-     C206_CaseStudy.deleteService(serviceList, "Painting");
-
-     // Check whether the size of the serviceList has reduced by 1
-     assertEquals("Service list size should be reduced by 1 after deletion", initialSize - 1, serviceList.size());
-
-     // Check that the deleted service is no longer in the list
-     assertFalse("Service 'Painting' should no longer be in the list", serviceList.contains(service1));
-     
-     
-     
-     //ERROR
-     // Error test case: Deleting a non-existing service
-     int initialSizeError = serviceList.size();
-     // Attempt to delete a non-existing service named "NonExistingService
-     C206_CaseStudy.deleteService(serviceList, "NonExistingService");
-
-     // Check that the size of the serviceList remains the same
-     assertEquals("Service list size should remain the same after error", initialSizeError, serviceList.size());
- }
+	        // Call the method to view all services in the serviceList
+	        // The method doesn't return a value, it only displays information using System.out.println
+	        // Therefore, the purpose of this test case is to check if the method executes without errors
+	        C206_CaseStudy.viewAllServices(serviceList);
+	    }
 
 
 
     @Test
- // Test case: Updating service details (Normal and Error)
- public void testUpdateServiceDetails() {
-     // Create a sample service named service1
-     RenovationService service1 = new RenovationService("Painting", "Professional painting service", 150.0);
+	 // Test case: Deleting existing services 
+	//NORMAL
+	 public void testDeleteServices() {
+	     // Normal test case: Deleting an existing service
+	     RenovationService service1 = new RenovationService("Painting", "Professional painting service", 150.0);
+	     serviceList.add(service1);
 
-     // Add the sample service to the serviceList
-     serviceList.add(service1);
+	     // Store the initial size of the serviceList
+	     int initialSize = serviceList.size();
 
-     // Define updated details
-     String newDescription = "Premium painting service";
-     double newPrice = 200.0;
+	     // Call the deleteService method to remove the service named "Painting"
+	     C206_CaseStudy.deleteService(serviceList, "Painting");
 
-     // Attempt to update the service details
-     assertTrue("Updating service details should return true", C206_CaseStudy.updateService(serviceList, "Painting", newDescription, newPrice));
+	     // Check whether the size of the serviceList has reduced by 1
+	     assertEquals("Service list size should be reduced by 1 after deletion", initialSize - 1, serviceList.size());
 
-     // Verify that the updated service details match the one in the serviceList
-     assertEquals("Updated description should match", newDescription, serviceList.get(0).getDescription());
-     assertEquals("Updated price should match", newPrice, serviceList.get(0).getPrice(), 0.01);
+	     // Check that the deleted service is no longer in the list
+	     assertFalse("Service 'Painting' should no longer be in the list", serviceList.contains(service1));
+	     
+	     
+	     
+	     //ERROR
+	     // Error test case: Deleting a non-existing service
+	     int initialSizeError = serviceList.size();
+	     // Attempt to delete a non-existing service named "NonExistingService
+	     C206_CaseStudy.deleteService(serviceList, "NonExistingService");
 
-     
-     
-     // Error test case: Updating service details for a non-existing service
-     assertFalse("Updating details of non-existing service should return false",
-             C206_CaseStudy.updateService(serviceList, "NonExistingService", "New Description", 200.0));
-
-     // Ensure that the serviceList size remains 1
-     assertEquals("Service list size should remain 1", 1, serviceList.size());
- }
+	     // Check that the size of the serviceList remains the same
+	     assertEquals("Service list size should remain the same after error", initialSizeError, serviceList.size());
+	 }
 
 
 	// -----------------------------------------------------------------
