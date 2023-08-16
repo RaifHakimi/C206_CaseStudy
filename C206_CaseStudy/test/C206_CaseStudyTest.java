@@ -13,7 +13,11 @@ public class C206_CaseStudyTest {
 	
 	private quote quote1; 
  	private quote quote2; 
-
+ 	
+ 	private request request1;
+	private request request2;
+	
+	private ArrayList<request> requestList;
 	private ArrayList<User> userList;
 	private ArrayList<Serviceprovider> ServiceproviderList;
 	private ArrayList<quote> quoteList;
@@ -116,6 +120,7 @@ public class C206_CaseStudyTest {
 						C206_CaseStudy.addUser(userList, user1);
 						// normal
 						C206_CaseStudy.deleteUser(userList, "jontan", "jontan@gmail.com", "jon123", 90123456, "76 smith street");
+						assertEquals("test that after deleting successfully, userList size becomes 0", 0, userList.size());
 
 						//error
 						assertEquals("test if there is no longer a vaild userList to delete from", 0, userList.size());
@@ -369,10 +374,50 @@ public class C206_CaseStudyTest {
 	// -----------------------------------------------------------------
 
 	// ***ADD REQUESTS***
+	public void testAddRequest() {
+		assertNotNull("Check if there is valid Request arraylist to add to", requestList);
+
+		C206_CaseStudy.addRequest(requestList, request1);
+		assertEquals("Check that Request arraylist size is 1", 1, requestList.size());
+		assertSame("Check that Request is added", request1, requestList.get(0));
+		
+		C206_CaseStudy.addRequest(requestList, request2);
+		assertEquals("Check that Request arraylist size is 2", 2, requestList.size());
+		assertSame("Check that Request is added", request2, requestList.get(1));
+	}
 
 	// ***RETRIEVE/VIEW ALL REQUESTS***
+	public void testRetrieveAllRequest() {
+		assertNotNull("Test if there is valid Request arraylist to retrieve item", requestList);
+		
 
+		String allRequest= C206_CaseStudy.retrieveAllRequest(requestList);
+		String testOutput = "";
+		assertEquals("Check that ViewAllRequest", testOutput, allRequest);
+		
+		C206_CaseStudy.addRequest(requestList, request1);
+		C206_CaseStudy.addRequest(requestList, request1);
+		assertEquals("Test that Request arraylist size is 2", 2, requestList.size());
+		
+		allRequest= C206_CaseStudy.retrieveAllRequest(requestList);
+		testOutput = String.format("%-10s %-30s %-10s %-10s %-20s\n","1", "details 1", "description 1");
+		testOutput += String.format("%-10s %-30s %-10s %-10s %-20s\n","2", "details 2", "description 2" );
+	
+		assertEquals("Test that ViewAllRequestlist", testOutput, allRequest);
+		
+	}
+	
 	// ***DELETE REQUESTS***
+	public void testDeleteRequest() {
+		assertNotNull("test if there is valid request arraylist to delete from", requestList);
+		assertEquals("test that the request arraylist is empty", 0, requestList.size());
+
+		C206_CaseStudy.addRequest(requestList, request1);
+
+		C206_CaseStudy.deleteRequest(requestList, "1", "details 1", "description 1");
+	
+		assertEquals("test if there is no longer a vaild requestList to delete from", 0, requestList.size());
+}
 
 
 
