@@ -30,13 +30,13 @@ public class C206_CaseStudy {
 				menu();
 			} else if (opt == 1) {
 				// add
-				addMenu(userList, services, ServiceproviderList, quoteList);
+				addMenu(userList, services, quoteList, ServiceproviderList);
 			} else if (opt == 2) {
 				// view
-				viewListMenu(userList, services, ServiceproviderList, quoteList);
+				viewListMenu(userList, services, quoteList, ServiceproviderList);
 			} else if (opt == 3) {
 				// delete
-				deleteMenu(userList, services, ServiceproviderList, quoteList);
+				deleteMenu(userList, services, quoteList, ServiceproviderList);
 			} else if (opt == 4) {
 				// log out
 				System.out.println("\nYou have logged out of the system, good bye!");
@@ -70,8 +70,8 @@ public class C206_CaseStudy {
 	// ------------------------------------------------------------
 	// static method to print addMenu
 	// ------------------------------------------------------------
-	public static void addMenu(ArrayList<User> userList, ArrayList<RenovationService> services,
-			ArrayList<Serviceprovider> serviceProviderList, ArrayList<quote> quoteList) {
+	public static void addMenu(ArrayList<User> userList, ArrayList<RenovationService> services, 
+			ArrayList<quote> quoteList, ArrayList<Serviceprovider> ServiceproviderList) {
 		Helper.line(45, "-");
 		System.out.print("1. Add user\n");
 		System.out.print("2. Add service provider\n");
@@ -95,8 +95,8 @@ public class C206_CaseStudy {
 			System.out.println("\nADD SERVICE PROVIDER\n");
 	    	  Serviceprovider sp = inputServiceprovider();
 	    	  
-	    	  boolean nameExists = spNameExists(serviceProviderList, sp.getName());
-	    	  boolean contactExists = spcontactExists(serviceProviderList, sp.getContactnum());
+	    	  boolean nameExists = spNameExists(ServiceproviderList, sp.getName());
+	    	  boolean contactExists = spcontactExists(ServiceproviderList, sp.getContactnum());
 	    	  boolean validContact = isValidContact(sp.getContactnum());
 	    	  
 	    	  if (nameExists) {
@@ -106,7 +106,7 @@ public class C206_CaseStudy {
 	    	  } else if (!validContact) {
 	    	        System.out.println("Invalid contact number. Enter again (8 digits).");
 	    	  } else {
-	    		  	C206_CaseStudy.addServiceprovider(serviceProviderList, sp);	
+	    		  	C206_CaseStudy.addServiceprovider(ServiceproviderList, sp);	
 	    		  	System.out.println("\n**** Service provider added ****");
 	    	  }
 		} else if (opt == 3) {
@@ -131,8 +131,8 @@ public class C206_CaseStudy {
 	// ------------------------------------------------------------
 	// static method to print viewListMenu
 	// ------------------------------------------------------------
-	public static void viewListMenu(ArrayList<User> userList, ArrayList<RenovationService> services,
-			ArrayList<Serviceprovider> serviceProviderList, ArrayList<quote> quoteList) {
+	public static void viewListMenu(ArrayList<User> userList, ArrayList<RenovationService> services, 
+			ArrayList<quote> quoteList, ArrayList<Serviceprovider> ServiceproviderList) {
 		//
 		// add if statement to check if user is admin or service provider IF POSSIBLE
 		Helper.line(45, "-");
@@ -151,7 +151,7 @@ public class C206_CaseStudy {
 		} else if (opt == 2) {
 			// VIEW SERVICE PROVIDER
 			System.out.println("\nVIEWING ALL SERVICE PROVIDER");
-	    	  C206_CaseStudy.viewServiceprovider(ServiceproviderList);
+	    	  C206_CaseStudy.viewServiceprovider(ServiceproviderList); 
 		} else if (opt == 3) {
 			// VIEW SERVICE
 			viewAllServices(services);
@@ -170,8 +170,8 @@ public class C206_CaseStudy {
 	// ------------------------------------------------------------
 	// static method to print deleteMenu
 	// ------------------------------------------------------------
-	public static void deleteMenu(ArrayList<User> userList, ArrayList<RenovationService> services,
-			ArrayList<Serviceprovider> serviceProviderList, ArrayList<quote> quoteList) {
+	public static void deleteMenu(ArrayList<User> userList, ArrayList<RenovationService> services, 
+			ArrayList<quote> quoteList, ArrayList<Serviceprovider> ServiceproviderList) {
 		//
 		// add if statement to check if user is admin or service provider IF POSSIBLE
 		Helper.line(45, "-");
@@ -192,9 +192,9 @@ public class C206_CaseStudy {
 			System.out.println("\nDELETE SERVICE PROVIDER");
 	    	  String spname = Helper.readString("\nEnter name of Service provider to delete > ");
 	    	  boolean found = false;
-	    	  for (Serviceprovider sp : serviceProviderList) {
+	    	  for (Serviceprovider sp : ServiceproviderList) {
 	    		  if (sp.getName().equalsIgnoreCase(spname)) {
-	    			  serviceProviderList.remove(sp); // Remove the matching service provider
+	    			  ServiceproviderList.remove(sp); // Remove the matching service provider
 	    	          found = true;
 	    	          System.out.println("**** Service provider " + spname + " has been removed ****");
 	    	          break; // Exit the loop after deletion
@@ -390,58 +390,65 @@ private static void deleteUser(ArrayList<User> userList) {
 		    
 
 //==================== ADD/VIEW/DELETE SERVICE PROVIDER METHODS ====================
-	// ------------------------------------------------------------
-	// add a new service provider
-	// ------------------------------------------------------------
-		    public static Serviceprovider inputServiceprovider() {
-				String name = Helper.readString("Enter service provider name > ");
-				String description = Helper.readString("Enter description > ");
-				String service = Helper.readString("Enter offered service > ");
-				int contactnum = Helper.readInt("Enter contact number > ");
+		 // ------------------------------------------------------------
+			// add a new service provider
+			// ------------------------------------------------------------
+				    public static Serviceprovider inputServiceprovider() {
+						String name = Helper.readString("Enter service provider name > ");
+						String description = Helper.readString("Enter description > ");
+						String service = Helper.readString("Enter offered service > ");
+						int contactnum = Helper.readInt("Enter contact number > ");
 
-				Serviceprovider sp= new Serviceprovider(name, description, service, contactnum);
-				return sp;
-				
-			}
-			
-			public static void addServiceprovider(ArrayList ServiceproviderList, Serviceprovider sp) {
-			    
-			    ServiceproviderList.add(sp);
-			}
-			
-			public static boolean spNameExists(ArrayList<Serviceprovider> ServiceproviderList, String name) {
-			    for (Serviceprovider sp : ServiceproviderList) {
-			        if (sp.getName().equalsIgnoreCase(name)) {
-			            return true;
-			        }
-			    }
-			    return false;
-			}
-			
-			public static boolean spcontactExists(ArrayList<Serviceprovider> ServiceproviderList, int contactnum) {
-			    for (Serviceprovider sp : ServiceproviderList) {
-			        if (sp.getContactnum() == contactnum) {
-			            return true;
-			        }
-			    }
-			    return false;
-			}
-			
-			public static boolean isValidContact(int contactnum) {
-			    int numDigits = String.valueOf(contactnum).length();
-			    return numDigits == 8;
-			}
-			
-			
-	// ------------------------------------------------------------
-	// display all service provider details (view)
-	// ------------------------------------------------------------
-
-			
-			
-	// ------------------------------------------------------------
-	// delete a service provider
-	// ------------------------------------------------------------
+						Serviceprovider sp= new Serviceprovider(name, description, service, contactnum);
+						return sp;
+						
+					}
+					
+					public static void addServiceprovider(ArrayList ServiceproviderList, Serviceprovider sp) {
+					    
+					    ServiceproviderList.add(sp);
+					}
+					
+					public static boolean spNameExists(ArrayList<Serviceprovider> ServiceproviderList, String name) {
+					    for (Serviceprovider sp : ServiceproviderList) {
+					        if (sp.getName().equalsIgnoreCase(name)) {
+					            return true;
+					        }
+					    }
+					    return false;
+					}
+					
+					public static boolean spcontactExists(ArrayList<Serviceprovider> ServiceproviderList, int contactnum) {
+					    for (Serviceprovider sp : ServiceproviderList) {
+					        if (sp.getContactnum() == contactnum) {
+					            return true;
+					        }
+					    }
+					    return false;
+					}
+					
+					public static boolean isValidContact(int contactnum) {
+					    int numDigits = String.valueOf(contactnum).length();
+					    return numDigits == 8;
+					}
+					
+					
+			// ------------------------------------------------------------
+			// display all service provider details (view)
+			// ------------------------------------------------------------
+					public static void viewServiceprovider(ArrayList<Serviceprovider> ServiceproviderList) {
+					    for (Serviceprovider sp : ServiceproviderList) {
+					        System.out.println("\nNAME: " + sp.getName() + "\nDESCRIPTION: " + sp.getDescription() 
+					                + "\nSERVICE: " + sp.getService() + "\nCONTACT NUMBER: " + sp.getContactnum());
+					    }   
+					    System.out.println();
+					}
+					
+					
+					
+			// ------------------------------------------------------------
+			// delete a service provider
+			// ------------------------------------------------------------
 
 //==================== ADD/VIEW/DELETE QUOTE METHODS ====================
 //====================          DONE BY RAIF         ====================
