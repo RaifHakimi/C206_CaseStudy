@@ -260,19 +260,21 @@ public class C206_CaseStudy {
 			}
 
 			if (!duplicate) {
-				userList.add(addUser);
-				System.out.println("\nUser has been added successfully!");
-			}
+		        // Check if the mobile number is 8 digits
+		        if (String.valueOf(mobile).length() == 8) {
+		            userList.add(addUser);
+		            System.out.println("\nUser has been added successfully!");
+		        } else {
+		            System.out.println("\nInvalid mobile number! Mobile number should 8 digits.");
+		        }
+		    }
 		} else if (username.isEmpty() || email.isEmpty() || password.isEmpty() || mobile <= 0 || address.isEmpty()) {
 			System.out.println("\nPlease fill in all fields.");
 		} else {
 			System.out.println("\nInvalid email format, please try again!");
 		}
+		
 
-		int aft = userList.size();
-		if (aft > bef) {
-			System.out.println("\nTotal users in the list: " + aft);
-		}
 	}
 
 	// ------------------------------------------------------------
