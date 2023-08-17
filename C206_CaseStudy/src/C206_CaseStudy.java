@@ -36,6 +36,8 @@ public class C206_CaseStudy {
 				viewListMenu(userList, services, quoteList, ServiceproviderList);
 			} else if (opt == 3) {
 				// delete
+				//String serviceNameToDelete = Helper.readString("Enter the service name to delete: ");        
+				//deleteService(services, serviceNameToDelete);
 				deleteMenu(userList, services, quoteList, ServiceproviderList);
 			} else if (opt == 4) {
 				// log out
@@ -206,7 +208,8 @@ public class C206_CaseStudy {
 	    	  }
 		} else if (opt == 3) {
 			// DELETE SERVICE
-			deleteService(services, null);
+			String serviceNameToDelete = Helper.readString("Enter the service name to delete: ");        
+			deleteService(services, serviceNameToDelete);
 		} else if (opt == 4) {
 			// DELETE QUOTE
 			int delQuote = deleteQuoteMenu();
