@@ -220,10 +220,7 @@ public class C206_CaseStudy {
 		}
 	}
 
-private static void deleteUser(ArrayList<User> userList) {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 	//==========	
 //==================== ADD/VIEW/DELETE USER METHODS ====================
@@ -295,8 +292,7 @@ private static void deleteUser(ArrayList<User> userList) {
 	// functionality
 	// It will return 'true' if the user record exist
 	// ------------------------------------------------------------
-	public static boolean deleteUser(ArrayList<User> userList, String string, String string2, String string3, int j,
-			String string4) {
+	public static void deleteUser(ArrayList<User> userList) {
 		// TODO Auto-generated method stub
 		boolean userfound = false;
 
@@ -310,13 +306,17 @@ private static void deleteUser(ArrayList<User> userList) {
 					userList.remove(i);
 					System.out.println("\n*** User has been deleted ***\n");
 				}
-			} else {
-				System.out.println("*** User not found! ***\n");
-			}
+				break;
+			} 
 		}
-		return false;
-	}
+		
+		if (!userfound) {
+	        System.out.println("*** User not found! ***\n");
+	    }
 
+	}
+	
+	
 //==================== ADD/VIEW/DELETE SERVICE METHODS ====================
 	//====================          DONE BY JACOB          ====================
 		 //------------------------------------------------------------
