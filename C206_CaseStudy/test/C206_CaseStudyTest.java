@@ -62,15 +62,15 @@ public class C206_CaseStudyTest {
 		// given that the list is empty, after adding 1 item, the size of the list is 1
 		// (normal test)
 		// ========== NORMAL TEST ==========
-		//C206_CaseStudy.addUser(userList, user1);
-		userList.add(user1);
+		C206_CaseStudy.addUser(userList, user1);
+		//userList.add(user1);
 		assertEquals("test that the user arraylist is 1", 1, userList.size());
 		assertSame("test that user1 has been added into the arraylist", user1, userList.get(0));
 
 		// add a user (normal test)
 		// ========== NORMAL TEST ==========
-		//C206_CaseStudy.addUser(userList, user2);
-		userList.add(user2);
+		C206_CaseStudy.addUser(userList, user2);
+		//userList.add(user2);
 		assertEquals("test that the arraylist is now 2", 2, userList.size());
 		// test that the user just added is the same as the last item in the list
 		assertSame("test that user is added to the end of the list", user2, userList.get(1));
@@ -98,7 +98,8 @@ public class C206_CaseStudyTest {
 			assertEquals("test that the user arraylist is empty", 0, userList.size());
 
 			// ========== NORMAL TEST ==========
-			userList.add(user1);
+			C206_CaseStudy.addUser(userList, user1);
+			//userList.add(user1);
 			assertEquals("test that the list retrieves 1 user", 1 , userList.size());
 			
 			// ========== ERROR TEST ==========
@@ -119,7 +120,7 @@ public class C206_CaseStudyTest {
 
 						C206_CaseStudy.addUser(userList, user1);
 						// normal
-						C206_CaseStudy.deleteUser(userList, "jontan", "jontan@gmail.com", "jon123", 90123456, "76 smith street");
+						C206_CaseStudy.deleteUser(userList);
 						assertEquals("test that after deleting successfully, userList size becomes 0", 0, userList.size());
 
 						//error
